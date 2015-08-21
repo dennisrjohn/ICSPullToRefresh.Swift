@@ -33,6 +33,7 @@ Adding images for activity indicator
 UIScrollView.configurePullToRefreshAnimation(duration:NSTimeInterval, staticImage:UIImage, animationImages:[UIImage])
 
 ```
+```
 UIScrollView.addPullToRefreshHandler(() -> ())
 ```
 
@@ -81,7 +82,7 @@ UIScrollView.configureInfiniteScrollingAnimation(duration:NSTimeInterval, static
 ```
 UIScrollView.addInfiniteScrollingWithHandler(() -> ())
 ```
-
+```
 Start/Stop animating:
 
 ```
