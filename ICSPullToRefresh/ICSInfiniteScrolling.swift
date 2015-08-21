@@ -9,6 +9,9 @@
 import UIKit
 
 private var infiniteScrollingViewKey: Void?
+private var scrollInactiveImage:UIImage?
+private var scrollAnimationImages:[UIImage]?
+private var scrollAnimationDuration:NSTimeInterval = 1.0
 private let observeKeyContentOffset = "contentOffset"
 private let observeKeyContentSize = "contentSize"
 private let observeKeyContentInset = "contentInset"
@@ -40,6 +43,12 @@ public extension UIScrollView{
         infiniteScrollingView?.actionHandler = actionHandler
         infiniteScrollingView?.scrollViewOriginContentBottomInset = contentInset.bottom
         setShowsInfiniteScrolling(true)
+    }
+    
+    public func configureInfiniteScrollingAnimation(duration:NSTimeInterval, staticImage:UIImage, animationImages:[UIImage]) {
+        scrollAnimationDuration = duration
+        scrollInactiveImage = staticImage
+        scrollAnimationImages = animationImages
     }
     
     public func triggerInfiniteScrolling() {
@@ -159,8 +168,10 @@ public class InfiniteScrollingView: UIView {
                 state = .Loading
             } else if contentOffset!.y > scrollOffsetThreshold && state == .Stopped && scrollView!.dragging {
                 state = .Triggered
+                activityIndicator.hidden = false
             } else if contentOffset!.y < scrollOffsetThreshold && state != .Stopped {
                 state == .Stopped
+                activityIndicator.hidden = true
             }
         }
     }
@@ -223,10 +234,22 @@ public class InfiniteScrollingView: UIView {
         return view
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        activityIndicator.hidesWhenStopped = true
+    lazy var activityIndicator: UIImageView = {
+        
+        var size:CGSize?
+        var rect:CGRect = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
+        
+        let activityIndicator = UIImageView(frame: rect)
+        
+        activityIndicator.contentMode = UIViewContentMode.ScaleAspectFit
+        
+        activityIndicator.image = scrollInactiveImage
+        activityIndicator.animationImages = scrollAnimationImages
+        activityIndicator.animationDuration = scrollAnimationDuration
+        
+        activityIndicator.hidden = true
+        
         return activityIndicator
-    }()
+        }()
     
 }

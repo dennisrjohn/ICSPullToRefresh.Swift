@@ -27,6 +27,11 @@ class ViewController: UITableViewController, UITableViewDataSource {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        tableView.configurePullToRefreshAnimation(1.0, staticImage: UIImage(named: "Loading1")!, animationImages: [UIImage(named: "Loading0")!, UIImage(named: "Loading1")!, UIImage(named: "Loading2")!, UIImage(named: "Loading3")!, UIImage(named: "Loading4")!, UIImage(named: "Loading5")!, UIImage(named: "Loading6")!, UIImage(named: "Loading7")!])
+        
+        tableView.configureInfiniteScrollingAnimation(1.0, staticImage: UIImage(named: "Loading1")!, animationImages: [UIImage(named: "Loading0")!, UIImage(named: "Loading1")!, UIImage(named: "Loading2")!, UIImage(named: "Loading3")!, UIImage(named: "Loading4")!, UIImage(named: "Loading5")!, UIImage(named: "Loading6")!, UIImage(named: "Loading7")!])
+        
         tableView.addPullToRefreshHandler {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
                 sleep(3)
@@ -35,9 +40,6 @@ class ViewController: UITableViewController, UITableViewDataSource {
                     tableView.pullToRefreshView?.stopAnimating()
                 })
             })
-        }
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (Int64) (1 * NSEC_PER_SEC) ), dispatch_get_main_queue()) { () -> Void in
-            self.tableView.triggerPullToRefresh()
         }
         
         tableView.addInfiniteScrollingWithHandler {

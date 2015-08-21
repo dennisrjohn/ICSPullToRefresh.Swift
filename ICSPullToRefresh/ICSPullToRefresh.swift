@@ -9,6 +9,9 @@
 import UIKit
 
 private var pullToRefreshViewKey: Void?
+private var pullInactiveImage:UIImage?
+private var pullAnimationImages:[UIImage]?
+private var pullAnimationDuration:NSTimeInterval = 0.75
 private let observeKeyContentOffset = "contentOffset"
 private let observeKeyFrame = "frame"
 
@@ -31,6 +34,12 @@ public extension UIScrollView{
     
     public var showsPullToRefresh: Bool {
         return pullToRefreshView != nil ? pullToRefreshView!.hidden : false
+    }
+    
+    public func configurePullToRefreshAnimation(duration:NSTimeInterval, staticImage:UIImage, animationImages:[UIImage]) {
+        pullAnimationDuration = duration
+        pullInactiveImage = staticImage
+        pullAnimationImages = animationImages
     }
     
     public func addPullToRefreshHandler(actionHandler: ActionHandler){
@@ -226,9 +235,19 @@ public class PullToRefreshView: UIView {
         return view
     }()
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
-        activityIndicator.hidesWhenStopped = false
+    lazy var activityIndicator: UIImageView = {
+        
+        var size:CGSize?
+        var rect:CGRect = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
+        
+        let activityIndicator = UIImageView(frame: rect)
+        
+        activityIndicator.contentMode = UIViewContentMode.ScaleAspectFit
+        
+        activityIndicator.image = pullInactiveImage
+        activityIndicator.animationImages = pullAnimationImages
+        activityIndicator.animationDuration = pullAnimationDuration
+        
         return activityIndicator
     }()
     
