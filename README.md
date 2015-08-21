@@ -82,7 +82,7 @@ UIScrollView.configureInfiniteScrollingAnimation(duration:NSTimeInterval, static
 ```
 UIScrollView.addInfiniteScrollingWithHandler(() -> ())
 ```
-```
+
 Start/Stop animating:
 
 ```
