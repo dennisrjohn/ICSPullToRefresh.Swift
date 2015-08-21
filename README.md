@@ -10,7 +10,7 @@ ICSPullToRefresh-AnimatedImages is a Fork version of [ICSPullToRefresh-Swift](ht
 
 CocoaPods 0.36 adds supports for Swift and embedded frameworks. 
 
-Add ```pod 'ICSPullToRefresh'``` to your ```Podfile```: 
+Add ```pod 'ICSPullToRefresh-AnimatedImages'``` to your ```Podfile```: 
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
@@ -22,12 +22,12 @@ pod 'ICSPullToRefresh', '~> 0.1.2'
 
 ### Manually
 
-You can also integrate ```ICSPullToRefresh``` directly with souce code. Clone the repo and copy ```ICSPullToRefresh.swift``` and ```ICSInfiniteScrolling.swift``` to your project.
+You can also integrate ```ICSPullToRefresh-AnimatedImages``` directly with souce code. Clone the repo and copy ```ICSPullToRefresh.swift``` and ```ICSInfiniteScrolling.swift``` to your project.
 
 ## Usage
 
 ### PullToRefresh
-```
+
 Adding images for activity indicator
 ```
 UIScrollView.configurePullToRefreshAnimation(duration:NSTimeInterval, staticImage:UIImage, animationImages:[UIImage])
@@ -73,12 +73,11 @@ tableView.addPullToRefreshHandler {
 ```
 
 ### InfiniteScrolling
-```
-Adding images for scroll activity indicator
-```
 
+Adding images for scroll activity indicator:
+```
 UIScrollView.configureInfiniteScrollingAnimation(duration:NSTimeInterval, staticImage:UIImage, animationImages:[UIImage])
-
+```
 ```
 UIScrollView.addInfiniteScrollingWithHandler(() -> ())
 ```
